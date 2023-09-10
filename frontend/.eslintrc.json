@@ -1,0 +1,12 @@
+{
+  // TODO, PR comment, added next/babel because 
+  // postcss.config.js returns an error 
+  // "Cannot find module 'next/babel'"
+  // https://stackoverflow.com/questions/68163385/parsing-error-cannot-find-module-next-babel
+
+  // Also, next JS includes the babel preset in the app.
+  // https://nextjs.org/docs/pages/building-your-application/configuring/babel
+
+  // Comment on why I like this comment style in PRs.
+  "extends": ["next/babel", "next/core-web-vitals"]
+}
