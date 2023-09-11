@@ -1,10 +1,8 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import SessionProvider from "./SessionProvider";
+import { ChakraProviders, SessionProviders } from "./providers";
 
-const inter = Inter({ subsets: ["latin"] });
 
 export default async function RootLayout({
   children,
@@ -14,10 +12,10 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions);
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <SessionProvider session={session}>
-          {children}
-        </SessionProvider>
+      <body className="bg-white">
+        <SessionProviders session={session}>
+          <ChakraProviders>{children}</ChakraProviders>
+        </SessionProviders>
       </body>
     </html>
   );
