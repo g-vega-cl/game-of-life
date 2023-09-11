@@ -1,9 +1,19 @@
 "use client";
+<<<<<<< Updated upstream
 
 import { useSession } from "next-auth/react";
 
 const Navbar = () => {
   const session = useSession();
+=======
+import { signIn, signOut, useSession } from "next-auth/react";
+import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { LogInButton, LogOutButton } from "@/app/components/atoms";
+import { useAuthentication } from "@/app/hooks/useIsAuthenticated";
+
+export function Navbar() {
+  const {isAuthenticated, session} = useAuthentication();
+>>>>>>> Stashed changes
   return (
     // TODO, this is just a placeholder
     // Will delete and make a proper navbar later
