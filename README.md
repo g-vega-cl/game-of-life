@@ -10,7 +10,7 @@ The universe of the Game of Life is an infinite, two-dimensional orthogonal grid
 * Just run `docker-compose up` from the root directory
 # Features
 * Simulate button. (progress through generations)
-    * Simulation speed input
+    * Simulation speed input.
 * Pause/Resume button.
 * Randomize button.
 * Reset button that resets the grid to its initial state.
@@ -25,11 +25,27 @@ The universe of the Game of Life is an infinite, two-dimensional orthogonal grid
 * User experiment history.
 
 
-# Future features
+# Roadmap
 * Analytics
 
 
 # Architecture
+
+## Folder structure.
+* Our repo uses the [next.js folder structure for pages](https://nextjs.org/docs/app/building-your-application/routing), `app/{pageName}/page.tsx` 
+* We also use Atomic Design because it forces the team to think about separation of concerns, reusability, and helps us work in parallel, and scale the application.
+
+**Atomic Design uses atoms, molecules, and organisms. Each component is explained next:**
+### **Atoms**
+Atoms are the basic building blocks in this methodology. They're the smallest possible components, like form labels, buttons, inputs, or even design tokens such as colors, fonts, and so on. Atoms can be abstract and don't necessarily represent the final product, but they help to create a consistent interface and development process.
+
+### **Molecules**
+Molecules are combinations of two or more atoms that, together, form relatively simple components. An example could be a form label, a text input, and a button combined together to make a search form. While atoms can exist in isolation (like a button), molecules find their true meaning when their components are used in conjunction with each other.
+
+### **Organisms**
+Organisms are relatively complex UI components composed of groups of molecules (and possibly atoms). Examples might include the header of a website, with a logo (atom), a navigation menu (molecule), and a search form (molecule). Organisms provide context for the molecules and can demonstrate different ways molecules can work together.
+
+## 
 
 ## Firestore.
 We will use a serverless architecture with firestore. I made this choice simply because there's no need to set up an intermediary server to manage access to data. This will simplify app development.
@@ -51,6 +67,13 @@ We some of Next.js's features we will take advantage of are:
 3. [Next.js also supports Incremental Static Regeneration: So even in a frontend-only setup we can benefit from regenerating static pages after they've been built, allowing us to update content without a full rebuild.](https://vercel.com/docs/incremental-static-regeneration )
 4. [Next.js handles routing efficiently](https://nextjs.org/docs/app/building-your-application/routing)
 
+## Authentication.
+We use next-auth.js for authentication. This allows us to use authentication with providers like google, facebook, etc...
+For this project we use google authentication.
+
 ## Docker
 This repo uses docker so it's easy to start the app and for consistency across environments.
 >[There are so many more benefits to docker, like ease of deployment, portability, etc...](https://www.infoworld.com/article/3310941/why-you-should-use-docker-and-containers.html).
+
+## Undefined state
+In our context we treat undefined state as the state before data is fetched. We should avoid using undefined everywhere except in the context of fetching data.
