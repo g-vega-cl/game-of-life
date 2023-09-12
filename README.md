@@ -10,25 +10,26 @@ The universe of the Game of Life is an infinite, two-dimensional orthogonal grid
 * Just run `docker-compose up` from the root directory
 # Features
 * Simulate button. (progress through generations)
-    * Simulation speed input.
 * Pause/Resume button.
 * Randomize button.
 * Reset button that resets the grid to its initial state.
 * Toggle cells between dead and alive with click.
-* Advance single next step.
-* [Different common patterns](https://conwaylife.com/wiki/Conway%27s_Game_of_Life)
-    * [Over time, various patterns with particular properties have been discovered in the Game of Life, including static patterns ("still lifes"), repeating patterns ("oscillators" – of which the "blinker" is a simple example), and patterns that move across the board ("spaceships")](https://academo.org/demos/conways-game-of-life/).
-* Grid size.
-* Grid wrapping. (Toggle)
-* Dockerize.
+* Dockerized.
 * Authentication.
-* User experiment history.
-
 
 # Roadmap
 * Analytics.
-* Pre commit linter.
+* CI / CD.
+    * Pre commit linter.
 * Make mobile friendly.
+* User experiment history.
+* Grid wrapping. (Toggle)
+* Grid size.
+* Advance single next step.
+* Simulation speed input.
+* [Different common patterns](https://conwaylife.com/wiki/Conway%27s_Game_of_Life)
+    * Over time, various patterns with particular properties have been discovered in the Game of Life, including static patterns ("still lifes"), repeating patterns ("oscillators" – of which the "blinker" is a simple example), and patterns that move across the board ("spaceships").
+
 
 
 # Architecture
@@ -82,3 +83,7 @@ In our context we treat undefined state as the state before data is fetched. We 
 
 ## Testing.
 We will use jest and react testing library to test the component.
+We use the [default next.js configuration](https://nextjs.org/docs/pages/building-your-application/optimizing/testing)
+
+## CI / CD
+I plan to use github actions for CI/CD. I will use it to run tests and deploy in the future.

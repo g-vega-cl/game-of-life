@@ -5,8 +5,9 @@ import {
   TGrid,
   generateRandomTiles,
   isGridEmpty,
-  useGameOfLifeContext,
 } from "./GameOfLife";
+import { useGameOfLifeContext } from "./GameOfLifeContext";
+import { buttonNames } from "./constants";
 
 // This array represents the eight neighbors surrounding a cell.
 const neighborsPosition = [
@@ -24,12 +25,12 @@ export const GameControls = () => {
   const { running, setRunning, grid, setGrid, numberOfRowsAndColumns } =
     useGameOfLifeContext();
 
-  const { numRows, numCols } = numberOfRowsAndColumns;
+  const { numRows, numColumns } = numberOfRowsAndColumns;
 
   const generateEmptyGrid = (): TGrid => {
     const rows: TGrid = [];
     for (let rowIndex = 0; rowIndex < numRows; rowIndex++) {
-      rows.push(Array.from(Array(numCols), () => 0));
+      rows.push(Array.from(Array(numColumns), () => 0));
     }
     return rows;
   };
@@ -44,7 +45,7 @@ export const GameControls = () => {
 
       let gridCopy = JSON.parse(JSON.stringify(grid));
       for (let rowNumber = 0; rowNumber < numRows; rowNumber++) {
-        for (let columnNumber = 0; columnNumber < numCols; columnNumber++) {
+        for (let columnNumber = 0; columnNumber < numColumns; columnNumber++) {
           let neighbors = 0;
           // Calculate the number of alive cells surrounding the current cell.
           neighborsPosition.forEach(([x, y]) => {
@@ -55,7 +56,7 @@ export const GameControls = () => {
               newRowNumber >= 0 &&
               newRowNumber < numRows &&
               newColumnNumber >= 0 &&
-              newColumnNumber < numCols
+              newColumnNumber < numColumns
             ) {
               neighbors += grid[newRowNumber][newColumnNumber];
             }
@@ -88,12 +89,12 @@ export const GameControls = () => {
         className="button start-game mx-2"
         onClick={() => {
           if (isGridEmpty(grid)) {
-            setGrid(generateRandomTiles({ numRows, numCols }));
+            setGrid(generateRandomTiles({ numRows, numColumns }));
           }
           setRunning(!running);
         }}
       >
-        <span>{running ? "Stop" : "Start"}</span>
+        <span>{running ? buttonNames.stop : buttonNames.start}</span>
       </Button>
 
       <Button
@@ -102,15 +103,15 @@ export const GameControls = () => {
           setRunning(false);
         }}
       >
-        Clear board
+        {buttonNames.clear}
       </Button>
 
       <Button
         onClick={() => {
-          setGrid(generateRandomTiles({ numRows, numCols }));
+          setGrid(generateRandomTiles({ numRows, numColumns }));
         }}
       >
-        Randomize
+        {buttonNames.randomize}
       </Button>
     </Box>
   );
