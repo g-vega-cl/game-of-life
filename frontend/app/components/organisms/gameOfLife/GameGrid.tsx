@@ -49,7 +49,6 @@ export const GameGrid = () => {
 
           return (
             <Box
-              // Comment, classNames is a library that allows you to conditionally add classes to an element.
               className={classNames(
                 "w-6 h-6 border-solid border-gray-500",
                 grid[rowIndex][columnIndex] ? "bg-pink-400" : "bg-white",

@@ -28,7 +28,7 @@ export const GameControls = () => {
 
   const generateEmptyGrid = (): TGrid => {
     const rows: TGrid = [];
-    for (let i = 0; i < numRows; i++) {
+    for (let rowIndex = 0; rowIndex < numRows; rowIndex++) {
       rows.push(Array.from(Array(numCols), () => 0));
     }
     return rows;
