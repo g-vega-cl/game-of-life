@@ -26,7 +26,9 @@ The universe of the Game of Life is an infinite, two-dimensional orthogonal grid
 
 
 # Roadmap
-* Analytics
+* Analytics.
+* Pre commit linter.
+* Make mobile friendly.
 
 
 # Architecture
@@ -71,9 +73,12 @@ We some of Next.js's features we will take advantage of are:
 We use next-auth.js for authentication. This allows us to use authentication with providers like google, facebook, etc...
 For this project we use google authentication.
 
-## Docker
+## Docker.
 This repo uses docker so it's easy to start the app and for consistency across environments.
 >[There are so many more benefits to docker, like ease of deployment, portability, etc...](https://www.infoworld.com/article/3310941/why-you-should-use-docker-and-containers.html).
 
-## Undefined state
+## Undefined state.
 In our context we treat undefined state as the state before data is fetched. We should avoid using undefined everywhere except in the context of fetching data.
+
+## Testing.
+We will use jest and react testing library to test the component.
