@@ -31,7 +31,7 @@ export const GameGrid = () => {
       className={`grid w-fit rounded`}
     >
       {grid?.map((rows, rowIndex) =>
-        rows.map((col, columnIndex) => {
+        rows.map((_, columnIndex) => {
           let roundedClass = "";
 
           if (rowIndex === 0 && columnIndex === 0) {

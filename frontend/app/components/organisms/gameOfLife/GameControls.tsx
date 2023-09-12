@@ -1,6 +1,6 @@
-'use client';
+"use client";
 import { Box, Button, useInterval } from "@chakra-ui/react";
-import { useCallback, useRef } from "react";
+import { useCallback } from "react";
 import {
   TGrid,
   generateRandomTiles,
@@ -25,8 +25,6 @@ export const GameControls = () => {
     useGameOfLifeContext();
 
   const { numRows, numCols } = numberOfRowsAndColumns;
-  const runningRef = useRef(running);
-  runningRef.current = running;
 
   const generateEmptyGrid = (): TGrid => {
     const rows: TGrid = [];
@@ -36,40 +34,51 @@ export const GameControls = () => {
     return rows;
   };
 
-  //useCallback to prevent our function from being created every time 
-  // the App component is rendered.
-  const runSimulation = useCallback((grid: TGrid) => {
-    if (!runningRef.current) {
-      return;
-    }
+  // Use useCallback to prevent our function from being created every time
+  // The App component is rendered.
+  const runSimulation = useCallback(
+    (grid: TGrid) => {
+      if (!running) {
+        return;
+      }
 
-    let gridCopy = JSON.parse(JSON.stringify(grid));
-    for (let i = 0; i < numRows; i++) {
-      for (let j = 0; j < numCols; j++) {
-        let neighbors = 0;
+      let gridCopy = JSON.parse(JSON.stringify(grid));
+      for (let rowNumber = 0; rowNumber < numRows; rowNumber++) {
+        for (let columnNumber = 0; columnNumber < numCols; columnNumber++) {
+          let neighbors = 0;
+          // Calculate the number of alive cells surrounding the current cell.
+          neighborsPosition.forEach(([x, y]) => {
+            const newRowNumber = rowNumber + x;
+            const newColumnNumber = columnNumber + y;
 
-        neighborsPosition.forEach(([x, y]) => {
-          const newI = i + x;
-          const newJ = j + y;
+            if (
+              newRowNumber >= 0 &&
+              newRowNumber < numRows &&
+              newColumnNumber >= 0 &&
+              newColumnNumber < numCols
+            ) {
+              neighbors += grid[newRowNumber][newColumnNumber];
+            }
+          });
 
-          if (newI >= 0 && newI < numRows && newJ >= 0 && newJ < numCols) {
-            neighbors += grid[newI][newJ];
+          // If there are less than 2 or more than 3 neighbors, the cell dies.
+          if (neighbors < 2 || neighbors > 3) {
+            gridCopy[rowNumber][columnNumber] = 0;
+          } else if (grid[rowNumber][columnNumber] === 0 && neighbors === 3) {
+            // If the cell is dead and has exactly 3 neighbors, the cell comes to life.
+            gridCopy[rowNumber][columnNumber] = 1;
           }
-        });
-
-        if (neighbors < 2 || neighbors > 3) {
-          gridCopy[i][j] = 0;
-        } else if (grid[i][j] === 0 && neighbors === 3) {
-          gridCopy[i][j] = 1;
         }
       }
-    }
 
-    setGrid(gridCopy);
-  }, []);
+      setGrid(gridCopy);
+    },
+    [running]
+  );
 
   useInterval(() => {
     runSimulation(grid);
+    // TODO, add a slider to control the speed of the simulation.
   }, 150);
 
   return (
@@ -81,9 +90,6 @@ export const GameControls = () => {
             setGrid(generateRandomTiles({ numRows, numCols }));
           }
           setRunning(!running);
-          if (!running) {
-            runningRef.current = true;
-          }
         }}
       >
         <span>{running ? "Stop" : "Start"}</span>
@@ -92,9 +98,7 @@ export const GameControls = () => {
       <Button
         onClick={() => {
           setGrid(generateEmptyGrid());
-
           setRunning(false);
-          runningRef.current = false;
         }}
       >
         Clear board

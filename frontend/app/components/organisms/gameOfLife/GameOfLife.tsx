@@ -1,12 +1,11 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
-import classNames from "classnames";
 import { Box, Spinner } from "@chakra-ui/react";
 import { GameGrid } from "./GameGrid";
 import { GameControls } from "./GameControls";
 
 export type TGrid = (0 | 1)[][];
-// This is too much state for one component.
+
 export interface IGameControls {
   running: boolean;
   setRunning: (value: boolean) => void;
@@ -26,16 +25,17 @@ export const generateRandomTiles = ({
   numCols,
 }: INumberOfRowsAndColumns) => {
   const grid: TGrid = [];
-  for (let i = 0; i < numRows; i++) {
-    grid.push(Array.from(Array(numCols), () => (Math.random() > 0.7 ? 1 : 0))); // returns a live cell 70% of the time
+  for (let rowNumber = 0; rowNumber < numRows; rowNumber++) {
+    // returns a live cell 70% of the time
+    grid.push(Array.from(Array(numCols), () => (Math.random() > 0.7 ? 1 : 0))); 
   }
   return grid;
 };
 
 export const isGridEmpty = (grid: TGrid): boolean => {
-  for (let i = 0; i < grid.length; i++) {
-    for (let j = 0; j < grid[i].length; j++) {
-      if (grid[i][j] !== 0) {
+  for (let rowNumber = 0; rowNumber < grid.length; rowNumber++) {
+    for (let columnNumber = 0; columnNumber < grid[rowNumber].length; columnNumber++) {
+      if (grid[rowNumber][columnNumber] !== 0) {
         return false; // Found a non-empty cell
       }
     }
@@ -75,7 +75,6 @@ export const GameOfLife = () => {
     setGrid(initialGrid);
     setNumberOfRowsAndColumns({ numRows: 25, numCols: 25 });
   }, []);
-  console.log('running')
 
   if (!grid || !numberOfRowsAndColumns) return <Spinner />;
 
