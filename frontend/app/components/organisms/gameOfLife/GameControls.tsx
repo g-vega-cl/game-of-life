@@ -82,6 +82,7 @@ export const GameControls = () => {
   }, 150);
 
   return (
+    // TODO, improve this interface and make mobile friendly.
     <Box className="grid grid-cols-3">
       <Button
         className="button start-game mx-2"
