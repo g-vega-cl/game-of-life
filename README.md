@@ -26,7 +26,8 @@ The universe of the Game of Life is an infinite, two-dimensional orthogonal grid
 
 
 # Roadmap
-* Analytics
+* Analytics.
+* Pre commit linter.
 
 
 # Architecture

@@ -1,14 +1,15 @@
+'use client';
 import { Box, Button, useInterval } from "@chakra-ui/react";
-import { useState, useCallback, useRef } from "react";
+import { useCallback, useRef } from "react";
 import {
-  IGameControls,
   TGrid,
   generateRandomTiles,
   isGridEmpty,
   useGameOfLifeContext,
 } from "./GameOfLife";
 
-const operations = [
+// This array represents the eight neighbors surrounding a cell.
+const neighborsPosition = [
   [0, 1],
   [0, -1],
   [1, -1],
@@ -35,6 +36,8 @@ export const GameControls = () => {
     return rows;
   };
 
+  //useCallback to prevent our function from being created every time 
+  // the App component is rendered.
   const runSimulation = useCallback((grid: TGrid) => {
     if (!runningRef.current) {
       return;
@@ -45,7 +48,7 @@ export const GameControls = () => {
       for (let j = 0; j < numCols; j++) {
         let neighbors = 0;
 
-        operations.forEach(([x, y]) => {
+        neighborsPosition.forEach(([x, y]) => {
           const newI = i + x;
           const newJ = j + y;
 
@@ -68,6 +71,7 @@ export const GameControls = () => {
   useInterval(() => {
     runSimulation(grid);
   }, 150);
+
   return (
     <Box className="grid grid-cols-3">
       <Button

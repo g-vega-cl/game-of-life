@@ -1,25 +1,26 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import classNames from "classnames";
 import { Box } from "@chakra-ui/react";
-import { TGrid, useGameOfLifeContext } from "./GameOfLife";
+import { useGameOfLifeContext } from "./GameOfLife";
 
 export const GameGrid = () => {
-
   const { grid, setGrid, numberOfRowsAndColumns } = useGameOfLifeContext();
-  const { numRows, numCols } = numberOfRowsAndColumns;
+  const { numCols } = numberOfRowsAndColumns;
 
   const handleGridClick = useCallback(
     ({ rowIndex, columnIndex }: { rowIndex: number; columnIndex: number }) => {
       if (!grid) return;
+      // Clone the grid array into a newGrid.
       let newGrid = JSON.parse(JSON.stringify(grid));
+      // Find the clicked cell by it's index and check if it's alive or dead,
+      // If the cell is currently alive, it make it dead and vice versa,
       newGrid[rowIndex][columnIndex] = grid[rowIndex][columnIndex] ? 0 : 1;
+      // Update the state with the modified newGrid.
       setGrid(newGrid);
     },
     [grid]
   );
-
-
 
   return (
     <Box
@@ -29,17 +30,20 @@ export const GameGrid = () => {
       }}
       className={`grid w-fit rounded`}
     >
-      {grid?.map((rows, i) =>
-        rows.map((col, k) => {
+      {grid?.map((rows, rowIndex) =>
+        rows.map((col, columnIndex) => {
           let roundedClass = "";
 
-          if (i === 0 && k === 0) {
+          if (rowIndex === 0 && columnIndex === 0) {
             roundedClass = "rounded-tl";
-          } else if (i === 0 && k === numCols - 1) {
+          } else if (rowIndex === 0 && columnIndex === numCols - 1) {
             roundedClass = "rounded-tr";
-          } else if (i === grid.length - 1 && k === 0) {
+          } else if (rowIndex === grid.length - 1 && columnIndex === 0) {
             roundedClass = "rounded-bl";
-          } else if (i === grid.length - 1 && k === numCols - 1) {
+          } else if (
+            rowIndex === grid.length - 1 &&
+            columnIndex === numCols - 1
+          ) {
             roundedClass = "rounded-br";
           }
 
@@ -48,12 +52,12 @@ export const GameGrid = () => {
               // Comment, classNames is a library that allows you to conditionally add classes to an element.
               className={classNames(
                 "w-6 h-6 border-solid border-gray-500",
-                grid[i][k] ? "bg-pink-400" : "bg-white",
+                grid[rowIndex][columnIndex] ? "bg-pink-400" : "bg-white",
                 roundedClass,
                 "border-[.5px]"
               )}
-              key={`${i}-${k}`}
-              onClick={() => handleGridClick({ rowIndex: i, columnIndex: k })}
+              key={`${rowIndex}-${columnIndex}`}
+              onClick={() => handleGridClick({ rowIndex, columnIndex })}
             />
           );
         })
