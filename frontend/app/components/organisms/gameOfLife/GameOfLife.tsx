@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { Box, Spinner } from "@chakra-ui/react";
 import { GameGrid } from "./GameGrid";
 import { GameControls } from "./GameControls";
+import { GameOfLifeContext } from "./GameOfLifeContext";
 
 export type TGrid = (0 | 1)[][];
 
@@ -17,46 +18,34 @@ export interface IGameControls {
 
 interface INumberOfRowsAndColumns {
   numRows: number;
-  numCols: number;
+  numColumns: number;
 }
 
 export const generateRandomTiles = ({
   numRows,
-  numCols,
+  numColumns,
 }: INumberOfRowsAndColumns) => {
   const grid: TGrid = [];
   for (let rowNumber = 0; rowNumber < numRows; rowNumber++) {
     // returns a live cell 70% of the time
-    grid.push(Array.from(Array(numCols), () => (Math.random() > 0.7 ? 1 : 0))); 
+    grid.push(Array.from(Array(numColumns), () => (Math.random() > 0.7 ? 1 : 0)));
   }
   return grid;
 };
 
 export const isGridEmpty = (grid: TGrid): boolean => {
   for (let rowNumber = 0; rowNumber < grid.length; rowNumber++) {
-    for (let columnNumber = 0; columnNumber < grid[rowNumber].length; columnNumber++) {
+    for (
+      let columnNumber = 0;
+      columnNumber < grid[rowNumber].length;
+      columnNumber++
+    ) {
       if (grid[rowNumber][columnNumber] !== 0) {
         return false; // Found a non-empty cell
       }
     }
   }
   return true; // If loop completes, then all cells are empty
-};
-
-const GameOfLifeContext = createContext<IGameControls>({
-  running: false,
-  setRunning: () => {},
-  grid: [],
-  setGrid: () => {},
-  numberOfRowsAndColumns: {
-    numRows: 0,
-    numCols: 0,
-  },
-  setNumberOfRowsAndColumns: () => {},
-});
-
-export const useGameOfLifeContext = () => {
-  return useContext(GameOfLifeContext);
 };
 
 export const GameOfLife = () => {
@@ -69,11 +58,11 @@ export const GameOfLife = () => {
     const defaultNumberOfRowsAndColumns = 25;
     const initialGrid = generateRandomTiles({
       numRows: defaultNumberOfRowsAndColumns,
-      numCols: defaultNumberOfRowsAndColumns,
+      numColumns: defaultNumberOfRowsAndColumns,
     });
 
     setGrid(initialGrid);
-    setNumberOfRowsAndColumns({ numRows: 25, numCols: 25 });
+    setNumberOfRowsAndColumns({ numRows: 25, numColumns: 25 });
   }, []);
 
   if (!grid || !numberOfRowsAndColumns) return <Spinner />;
@@ -86,8 +75,6 @@ export const GameOfLife = () => {
     numberOfRowsAndColumns,
     setNumberOfRowsAndColumns,
   };
-
-  
 
   return (
     <GameOfLifeContext.Provider value={contextValue}>

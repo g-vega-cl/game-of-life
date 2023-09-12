@@ -82,3 +82,4 @@ In our context we treat undefined state as the state before data is fetched. We 
 
 ## Testing.
 We will use jest and react testing library to test the component.
+We use the [default next.js configuration](https://nextjs.org/docs/pages/building-your-application/optimizing/testing)
