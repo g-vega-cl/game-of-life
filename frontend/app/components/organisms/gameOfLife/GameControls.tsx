@@ -5,6 +5,7 @@ import {
   TGrid,
   generateRandomTiles,
   isGridEmpty,
+  useGameOfLifeContext,
 } from "./GameOfLife";
 
 const operations = [
@@ -18,14 +19,11 @@ const operations = [
   [-1, 0],
 ];
 
-export const GameControls = ({
-  running,
-  setRunning,
-  grid,
-  setGrid,
-  numRows,
-  numCols,
-}: IGameControls) => {
+export const GameControls = () => {
+  const { running, setRunning, grid, setGrid, numberOfRowsAndColumns } =
+    useGameOfLifeContext();
+
+  const { numRows, numCols } = numberOfRowsAndColumns;
   const runningRef = useRef(running);
   runningRef.current = running;
 
@@ -90,6 +88,9 @@ export const GameControls = ({
       <Button
         onClick={() => {
           setGrid(generateEmptyGrid());
+
+          setRunning(false);
+          runningRef.current = false;
         }}
       >
         Clear board

@@ -2,15 +2,13 @@
 import { useCallback, useEffect, useState } from "react";
 import classNames from "classnames";
 import { Box } from "@chakra-ui/react";
-import { TGrid } from "./GameOfLife";
-interface IGameGrid {
-  grid: TGrid | undefined;
-  setGrid: (value: TGrid) => void;
-  numRows: number;
-  numCols: number;
-}
+import { TGrid, useGameOfLifeContext } from "./GameOfLife";
 
-export const GameGrid = ({ grid, setGrid, numCols, numRows }: IGameGrid) => {
+export const GameGrid = () => {
+
+  const { grid, setGrid, numberOfRowsAndColumns } = useGameOfLifeContext();
+  const { numRows, numCols } = numberOfRowsAndColumns;
+
   const handleGridClick = useCallback(
     ({ rowIndex, columnIndex }: { rowIndex: number; columnIndex: number }) => {
       if (!grid) return;
