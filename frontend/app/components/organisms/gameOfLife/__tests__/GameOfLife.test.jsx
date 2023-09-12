@@ -17,7 +17,6 @@ describe("GameOfLife", () => {
 
     fireEvent.click(startButton);
     await waitFor(() => {
-      // TODO, make this values constants.
       expect(startButton).toHaveTextContent(buttonNames.stop);
     });
 
