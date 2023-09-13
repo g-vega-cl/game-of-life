@@ -1,5 +1,3 @@
-import { Navbar } from "@/app/components/organisms/navbar/Navbar";
-
 const page = () => {
   return (
     <div>
