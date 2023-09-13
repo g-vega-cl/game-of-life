@@ -5,7 +5,6 @@ import { Box } from "@chakra-ui/react";
 export default function Home() {
   return (
     <Box >
-      <Navbar />
       <Box className="p-8">
         <GameOfLife />
       </Box>
