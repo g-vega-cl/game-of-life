@@ -3,7 +3,7 @@ import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import { LogInButton, LogOutButton } from "@/app/components/atoms";
 import { useAuthentication } from "@/app/hooks/useIsAuthenticated";
 
-export function Navbar() {
+export const Navbar = () => {
   const { isAuthenticated, session } = useAuthentication();
   return (
     <Box>
