@@ -8,6 +8,7 @@ import {
 } from "./GameOfLife";
 import { useGameOfLifeContext } from "./GameOfLifeContext";
 import { buttonNames } from "./constants";
+import { PinkButton } from "../../atoms/PinkButton";
 
 // This array represents the eight neighbors surrounding a cell.
 const neighborsPosition = [
@@ -84,8 +85,8 @@ export const GameControls = () => {
 
   return (
     // TODO, improve this interface and make mobile friendly.
-    <Box className="grid grid-cols-3">
-      <Button
+    <Box className="grid grid-cols-3 gap-3">
+      <PinkButton
         className="button start-game mx-2"
         onClick={() => {
           if (isGridEmpty(grid)) {
@@ -95,24 +96,24 @@ export const GameControls = () => {
         }}
       >
         <span>{running ? buttonNames.stop : buttonNames.start}</span>
-      </Button>
+      </PinkButton>
 
-      <Button
+      <PinkButton
         onClick={() => {
           setGrid(generateEmptyGrid());
           setRunning(false);
         }}
       >
         {buttonNames.clear}
-      </Button>
+      </PinkButton>
 
-      <Button
+      <PinkButton
         onClick={() => {
           setGrid(generateRandomTiles({ numRows, numColumns }));
         }}
       >
         {buttonNames.randomize}
-      </Button>
+      </PinkButton>
     </Box>
   );
 };
