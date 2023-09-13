@@ -7,7 +7,8 @@ The universe of the Game of Life is an infinite, two-dimensional orthogonal grid
 3. All other live cells die in the next generation. Similarly, all other dead cells stay dead.
 
 # How to run.
-* Just run `docker-compose up` from the root directory
+0. create a .env.local file and copy the contents of .env.default into it.
+1. Just run `docker-compose up` from the root directory
 # Features
 * Simulate button. (progress through generations)
 * Pause/Resume button.
