@@ -8,7 +8,7 @@ import {
 } from "./GameOfLife";
 import { useGameOfLifeContext } from "./GameOfLifeContext";
 import { buttonNames } from "./constants";
-import { PinkButton } from "../../atoms/PinkButton";
+import { PinkButton } from "@/app/components/atoms/PinkButton";
 
 // This array represents the eight neighbors surrounding a cell.
 const neighborsPosition = [
