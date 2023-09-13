@@ -4,11 +4,11 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { ChakraProviders, SessionProviders } from "./providers";
 
 
-export default async function RootLayout({
+const RootLayout = async ({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}) =>  {
   const session = await getServerSession(authOptions);
   return (
     <html lang="en">
@@ -20,3 +20,5 @@ export default async function RootLayout({
     </html>
   );
 }
+
+export default RootLayout
