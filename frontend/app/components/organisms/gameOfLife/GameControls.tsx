@@ -1,5 +1,5 @@
 "use client";
-import { Box, Button, useInterval } from "@chakra-ui/react";
+import { Box, useInterval } from "@chakra-ui/react";
 import { useCallback } from "react";
 import {
   TGrid,
